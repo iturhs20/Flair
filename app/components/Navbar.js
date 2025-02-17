@@ -32,7 +32,7 @@ function Navbar() {
   return (
     <div className="w-full px-4 py-3">
       {/* Navbar Container */}
-      <div className="bg-white max-w-[1200px] mx-auto rounded-xl shadow-lg">
+      <div className="bg-white max-w mx-auto rounded-xl shadow-lg">
         
         {/* Desktop and Mobile Header */}
         <div className="flex items-center justify-between p-3 md:p-4">
@@ -50,7 +50,7 @@ function Navbar() {
 
           {/* Desktop Navigation Menu */}
           <div className="hidden md:block">
-            <div className="bg-gray-200 px-2 py-1 rounded-full">
+            <div className="bg-[#F3F4F6] px-2 py-1 rounded-full">
               <ul className="flex gap-1">
                 {navItems.map((item) => (
                   <li key={item.id} className="min-w-[100px] text-center">
@@ -105,7 +105,7 @@ function Navbar() {
             transitionDelay: isMenuOpen ? '0s, 0s, 0s' : '0s, 0.2s, 0.3s'
           }}
         >
-          <div className="bg-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-[#EDEDED] rounded-xl overflow-hidden">
             <ul className="flex flex-col">
               {navItems.map((item) => (
                 <li key={item.id}>
