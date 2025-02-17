@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Drawer from "./components/Drawer";
 import Process from "./components/Process";
 import Assets from "./components/Assets";
+import RunningHours from "./components/RunningHours";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <Drawer/>
       <div className="flex">
         <Process /> 
+        <RunningHours/>
         <Assets /> 
       </div>
     </div>
