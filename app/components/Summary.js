@@ -1,10 +1,29 @@
 'use client'
-import React from "react";
-import { FileText } from "lucide-react"; // Importing icon
+import React, { useEffect, useState } from "react";
+import { FileText } from "lucide-react";
 
 const Summary = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
   return (
-    <div className="mt-10 mb-10 w-[330px] p-0">
+    <div className={`
+      mt-10 mb-10 ${isMobile ? 'w-full' : 'w-[330px]'} p-0
+    `}>
       {/* Summary Header */}
       <div className="bg-blue-900 text-white text-center p-2 rounded-t-lg font-semibold flex items-center justify-center gap-2">
         <FileText size={18} /> Summary
