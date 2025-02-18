@@ -40,18 +40,12 @@ function Process() {
     >
       {/* Process Flow Section */}
       <div
-        className={`flex ${
-          isMobile
-            ? "flex-col items-center gap-4"
-            : "flex-row items-center justify-center gap-2"
-        } p-3 bg-white rounded-lg shadow-md`}
+        className={`flex ${isMobile ? "flex-col items-center gap-4" : "flex-row items-center justify-center gap-2"} p-3 bg-white rounded-lg shadow-md`}
       >
         {processSteps.map((step, index) => (
           <div
             key={step.id}
-            className={`flex ${
-              isMobile ? "flex-col items-center" : "items-center"
-            }`}
+            className={`flex ${isMobile ? "flex-col items-center" : "items-center"}`}
           >
             {/* Step Box */}
             <div

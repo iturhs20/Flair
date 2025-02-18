@@ -9,7 +9,7 @@ const Assets = () => {
   return (
     <>
       {/* Desktop view */}
-      <div className="absolute mt-1 right-0 lg:right-[1rem] w-[360px] bg-white rounded-lg shadow-md p-4 hidden md:block">
+      <div className="absolute mt-1 right-0 lg:right-[1rem] w-[360px] bg-white rounded-lg shadow-md p-4 hidden lg:block">
         {/* Tab Buttons */}
         <div className="flex">
           <button
@@ -84,7 +84,7 @@ const Assets = () => {
       </div>
 
       {/* Mobile view */}
-      <div className="block md:hidden w-full shadow-md p-4 mb-4">
+      <div className="block lg:hidden w-full shadow-md p-4 mb-4">
         {/* Tab Buttons */}
         <div className="flex">
           <button
