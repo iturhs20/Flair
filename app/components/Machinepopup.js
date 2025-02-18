@@ -1,0 +1,131 @@
+import React, { useState } from "react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+
+// Machine Data for different types
+const machineDataMap = {
+  "Pipe Cutting": {
+    lastReported: "10:59 11-02-2025",
+    utilization: "1000 units",
+    idleTime: "15 mins",
+    currentShift: "420 units",
+    efficiency: "96%",
+    totalToday: "1420 units",
+    downtime: "15 min",
+  },
+  "Pipe Making": {
+    lastReported: "11:15 11-02-2025",
+    utilization: "850 units",
+    idleTime: "20 mins",
+    currentShift: "380 units",
+    efficiency: "92%",
+    totalToday: "1230 units",
+    downtime: "20 min",
+  },
+};
+
+// Production Data for different views
+const productionDataMap = {
+  Shiftwise: [
+    { shift: "Morning", rate: 10 },
+    { shift: "Afternoon", rate: 25 },
+    { shift: "Evening", rate: 50 },
+  ],
+  Daily: [
+    { shift: "Monday", rate: 300 },
+    { shift: "Tuesday", rate: 500 },
+    { shift: "Wednesday", rate: 700 },
+  ],
+  Weekly: [
+    { shift: "Week 1", rate: 1500 },
+    { shift: "Week 2", rate: 1800 },
+    { shift: "Week 3", rate: 2100 },
+  ],
+  Date: [
+    { shift: "11-02", rate: 600 },
+    { shift: "12-02", rate: 800 },
+    { shift: "13-02", rate: 1000 },
+  ],
+};
+
+function MachinePopup({ onClose }) {
+  const [selectedMachine, setSelectedMachine] = useState("Pipe Cutting");
+  const [view, setView] = useState("Shiftwise");
+
+  const machineData = machineDataMap[selectedMachine]; // Get selected machine data
+  const productionData = productionDataMap[view]; // Get selected view data
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-[1000px] h-[650px] relative flex gap-8">
+        
+        {/* Left Sidebar */}
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md w-1/3 flex flex-col items-center">
+          <div className="w-20 h-20 border-2 border-black rounded-full mb-3"></div>
+
+          {/* Machine Type Dropdown */}
+          <select
+            className="text-xl font-bold border border-gray-300 rounded-md p-2 mt-2"
+            value={selectedMachine}
+            onChange={(e) => setSelectedMachine(e.target.value)}
+          >
+            {Object.keys(machineDataMap).map((machine) => (
+              <option key={machine} value={machine}>{machine}</option>
+            ))}
+          </select>
+
+          {/* Machine Details */}
+          <div className="mt-6 space-y-4 text-gray-700 text-lg">
+            <p><strong>Last reported:</strong> <span className="text-blue-700">{machineData.lastReported}</span></p>
+            <p><strong>Cumulative utilization:</strong> <span className="text-blue-700">{machineData.utilization}</span></p>
+            <p><strong>Idle Time:</strong> {machineData.idleTime}</p>
+          </div>
+        </div>
+
+        {/* Right Content */}
+        <div className="w-2/3">
+          <h2 className="text-2xl font-bold">Machine Details: {selectedMachine}</h2>
+
+          {/* Toggle Buttons */}
+          <div className="flex gap-3 mt-4">
+            {["Shiftwise", "Daily", "Weekly", "Date"].map((btn) => (
+              <button
+                key={btn}
+                className={`px-6 py-2 rounded-md text-lg ${
+                  view === btn ? "bg-blue-900 text-white" : "bg-gray-200"
+                }`}
+                onClick={() => setView(btn)}
+              >
+                {btn}
+              </button>
+            ))}
+          </div>
+
+          {/* Production Data */}
+          <div className="grid grid-cols-2 gap-6 mt-6 text-gray-700 text-lg">
+            <p><strong>Current shift production:</strong> <span className="text-blue-700">{machineData.currentShift} units</span></p>
+            <p><strong>Efficiency Rate:</strong> <span className="text-blue-700">{machineData.efficiency}</span></p>
+            <p><strong>Total Today:</strong> <span className="text-blue-700">{machineData.totalToday} units</span></p>
+            <p><strong>Downtime:</strong> {machineData.downtime}</p>
+          </div>
+
+          {/* Graph - Dynamic Based on View */}
+          <div className="mt-6 h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={productionData}>
+                <XAxis dataKey="shift" tick={{ fontSize: 14 }} />
+                <YAxis tick={{ fontSize: 14 }} />
+                <Tooltip />
+                <Line type="monotone" dataKey="rate" stroke="#00008B" strokeWidth={3} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Close Button */}
+        <button className="absolute top-3 right-3 bg-gray-300 rounded-full p-3 text-xl" onClick={onClose}>✖</button>
+      </div>
+    </div>
+  );
+}
+
+export default MachinePopup;
