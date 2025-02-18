@@ -5,6 +5,13 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'md:block', 
+    'md:hidden', 
+    'lg:hidden',
+    'lg:block',
+    'text-center', // Add any other classes that might be dynamically generated
+  ],
   theme: {
     extend: {
       colors: {
