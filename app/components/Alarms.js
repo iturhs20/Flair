@@ -96,7 +96,7 @@ export default function Alarms() {
               </tr>
             </thead>
             <tbody>
-              {[...Array(7)].map((_, i) => (
+              {[...Array(6)].map((_, i) => (
                 <tr key={i} className="bg-white text-center">
                   {Array(7)
                     .fill("")
