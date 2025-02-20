@@ -198,7 +198,7 @@ function MachinePopup({ machine, onClose }) {
           </p>
           <div className="mt-6 space-y-4 text-gray-700 text-lg">
             <p><strong>Last reported:</strong> <span className="text-blue-700">{machineData.lastReported}</span></p>
-            <p><strong>Cumulative utilization:</strong> <span className="text-blue-700">{machineData.utilization}</span></p>
+            <p><strong>Shift production:</strong> <span className="text-blue-700">{machineData.utilization}</span></p>
             <p><strong>Machine On time:</strong> <span className="text-blue-700">{machineData.ontime}</span></p>
             <p><strong>Machine Running Time:</strong> <span className="text-blue-700">{machineData.runningtime}</span></p>
             <p><strong>Machine Idle Time:</strong> <span className="text-blue-700">{machineData.idleTime}</span></p>
@@ -209,6 +209,12 @@ function MachinePopup({ machine, onClose }) {
         {/* Right Content */}
         <div className="w-2/3">
           <h2 className="text-2xl font-bold">Machine Details: {machine.title}</h2>
+
+          {/* Production Data */}
+          <div className="grid grid-cols-3 gap-6 mt-6 text-gray-700 text-lg">
+            <p><strong>Utilization Rate:</strong> <span className="text-blue-700">{machineData.efficiency}</span></p>
+            <p><strong>Total Today:</strong> <span className="text-blue-700">{machineData.totalToday}</span></p>
+          </div>
 
           {/* Toggle Buttons */}
           <div className="flex gap-3 mt-4 relative">
@@ -239,12 +245,7 @@ function MachinePopup({ machine, onClose }) {
             </div>
           )}
 
-          {/* Production Data */}
-          <div className="grid grid-cols-3 gap-6 mt-6 text-gray-700 text-lg">
-            <p><strong>Current shift production:</strong> <span className="text-blue-700">{machineData.currentShift}</span></p>
-            <p><strong>Utilization Rate:</strong> <span className="text-blue-700">{machineData.efficiency}</span></p>
-            <p><strong>Total Today:</strong> <span className="text-blue-700">{machineData.totalToday}</span></p>
-          </div>
+          
 
           {/* Graph */}
           <div className="mt-16 h-[320px]">

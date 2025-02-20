@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 
 const productionData = [
-  { shift: 'Shift 1', productionRate: 80, utilization: 75 },
-  { shift: 'Shift 2', productionRate: 85, utilization: 78 },
-  { shift: 'Shift 3', productionRate: 75, utilization: 70 },
+  { shift: 'Shift 1', productionCount: 80, utilization: 75 },
+  { shift: 'Shift 2', productionCount: 85, utilization: 78 },
+  { shift: 'Shift 3', productionCount: 75, utilization: 70 },
 ];
 
 const machineData = [
@@ -31,7 +31,7 @@ const ProductionUtilizationGraphs = () => {
     <div className="p-4 space-y-6 ml-[-135px] w-full max-w-[580px] mx-auto"> {/* Shifted Left */}
       {/* Line Graph */}
       <div className="bg-white shadow-lg rounded-lg p-3 mt-32">
-        <h2 className="text-xl font-semibold mb-2">Production count vs Average Utilization</h2>
+        <h2 className="text-xl font-semibold mb-2 text-black">Production count vs Average Utilization</h2>
         <ResponsiveContainer width="100%" height={150} fixed>
           <LineChart data={productionData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -39,7 +39,7 @@ const ProductionUtilizationGraphs = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="productionRate" stroke="#1E3A8A" strokeWidth={2} />
+            <Line type="monotone" dataKey="productionCount" stroke="#1E3A8A" strokeWidth={2} />
             <Line type="monotone" dataKey="utilization" stroke="#EF4444" />
           </LineChart>
         </ResponsiveContainer>
@@ -47,7 +47,7 @@ const ProductionUtilizationGraphs = () => {
 
       {/* Bar Graph */}
       <div className="bg-white shadow-lg rounded-lg p-2 min-h-[230px]">
-        <h2 className="text-xl font-semibold mb-2">Machine Running Hour vs Machine On Hour</h2>
+        <h2 className="text-xl font-semibold mb-2 text-black">Machine Running Hour vs Machine On Hour</h2>
         <ResponsiveContainer width="100%" height={150}>
         <BarChart data={machineData}>
             <CartesianGrid strokeDasharray="3 3" />
