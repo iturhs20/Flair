@@ -6,16 +6,38 @@ const RunningHours = () => {
     <>
       {/* Desktop view */}
       <div className="hidden md:block">
-        <div className="mt-40 ml-56 mx-auto w-[360px] bg-white rounded-lg shadow-md p-8">
+        <div className="mt-36 ml-56 mx-auto w-[360px] bg-white rounded-lg shadow-md p-8 min-h-[210px]">
           <table className="w-full border border-collapse text-center">
             <tbody>
               <tr className="bg-blue-900 text-white font-semibold">
-                <td className="border p-2">Running hour</td>
-                <td className="border p-2">1:15</td>
+                <td className="border p-2">Total Production</td>
+                <td className="border p-2">11156</td>
               </tr>
               <tr className="bg-blue-900 text-white font-semibold">
+                <td className="border p-2">Average Utilization Percentage</td>
+                <td className="border p-2">90%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="hidden md:block">
+        <div className="mt-6 ml-56 mx-auto w-[360px] bg-white rounded-lg shadow-md p-8">
+          <table className="w-full border border-collapse text-center">
+            <tbody>
+              
+              <tr className="bg-blue-900 text-white font-semibold">
                 <td className="border p-2">Machine On hour</td>
-                <td className="border p-2">3 hrs</td>
+                <td className="border p-2">10 hrs</td>
+              </tr>
+              <tr className="bg-blue-900 text-white font-semibold">
+                <td className="border p-2">Machine Running hour</td>
+                <td className="border p-2">8 hrs</td>
+              </tr>
+              <tr className="bg-blue-900 text-white font-semibold">
+                <td className="border p-2">Machine Idle hour</td>
+                <td className="border p-2">2 hrs</td>
               </tr>
               <tr className="bg-blue-900 text-white font-semibold">
                 <td className="border p-2">Machine Off hour</td>

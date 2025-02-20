@@ -26,19 +26,19 @@ const Summary = () => {
     `}>
       {/* Summary Header */}
       <div className="bg-blue-900 text-white text-center p-2 rounded-t-lg font-semibold flex items-center justify-center gap-2">
-        <FileText size={18} /> Summary
+        <FileText size={18} /> Shiftwise Summary Utilization
       </div>
 
       {/* Summary Table */}
       <table className="w-full border border-collapse text-center bg-[#F3F4F6]">
         <tbody>
           <tr>
-            <td className="border p-2 font-semibold">Machine On Average</td>
-            <td className="border p-2">7%</td>
+            <td className="border p-2 font-semibold text-black">Machine On Average</td>
+            <td className="border p-2 text-black">7%</td>
           </tr>
           <tr>
-            <td className="border p-2 font-semibold">Machine Off Average</td>
-            <td className="border p-2">5%</td>
+            <td className="border p-2 font-semibold text-black">Machine Off Average</td>
+            <td className="border p-2 text-black">5%</td>
           </tr>
         </tbody>
       </table>

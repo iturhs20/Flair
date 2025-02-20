@@ -40,41 +40,38 @@ function Process() {
     >
       {/* Process Flow Section */}
       <div
-        className={`flex ${isMobile ? "flex-col items-center gap-4" : "flex-row items-center justify-center gap-2"} p-3 bg-white rounded-lg shadow-md`}
+        className={`flex ${isMobile ? "flex-col items-center gap-2" : "flex-row items-center justify-center gap-2"} p-3 bg-white rounded-lg shadow-md`}
       >
         {processSteps.map((step, index) => (
           <div
             key={step.id}
             className={`flex ${isMobile ? "flex-col items-center" : "items-center"}`}
           >
-            {/* Step Box */}
+            {/* Step Box with colored border */}
             <div
-              className={`bg-[#F3F4F6] ${
-                isMobile ? "w-44 h-24 p-3" : "w-36 h-28 p-3"
-              } rounded-lg shadow-md flex flex-col items-center justify-center transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer`}
+              className={`${
+                step.status === "green" ? "border-green-500" : "border-red-500"
+              } bg-[#F3F4F6] ${
+                isMobile ? "w-40 h-20 p-2" : "w-32 h-24 p-2"
+              } rounded-lg shadow-md flex flex-col items-center justify-center transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border-4`}
               onClick={() => setSelectedMachine(step)}
             >
-              <div className="flex items-center gap-2">
-                <span className="bg-blue-900 text-white w-7 h-7 flex items-center justify-center rounded-full text-sm font-bold">
+              <div className="flex items-center gap-1">
+                <span className="bg-blue-900 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs font-bold">
                   {step.id}
                 </span>
-                <span
-                  className={`w-3 h-3 rounded-full ${
-                    step.status === "green" ? "bg-green-500" : "bg-red-500"
-                  }`}
-                ></span>
               </div>
-              <p className="text-center font-semibold mt-1">{step.title}</p>
+              <p className="text-center font-semibold text-[12px] mt-1 text-black">{step.title}</p>
               <p className="text-xs text-gray-500">Current Rate: {step.rate}</p>
             </div>
 
             {/* Arrow between steps */}
             {index !== processSteps.length - 1 && (
-              <div className={`${isMobile ? "mt-2" : "mx-2"}`}>
+              <div className={`${isMobile ? "mt-1" : "mx-2"}`}>
                 {isMobile ? (
-                  <ArrowDown size={24} className="text-gray-400" />
+                  <ArrowDown size={20} className="text-gray-400" />
                 ) : (
-                  <ArrowRight size={20} className="text-gray-400" />
+                  <ArrowRight size={16} className="text-gray-400" />
                 )}
               </div>
             )}

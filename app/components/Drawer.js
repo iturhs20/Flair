@@ -29,7 +29,7 @@ function Navbar() {
   return (
     <>
       {/* Desktop Sidebar (Unchanged) */}
-      <div className="hidden md:flex flex-col w-48 bg-white shadow-lg rounded-xl p-4 ml-4 mt-1 overflow-hidden mb-4 h-screen fixed">
+      <div className="hidden md:flex flex-col w-48 bg-white shadow-lg rounded-xl p-4 ml-4 mt-1 overflow-hidden fixed h-[602px]">
         {/* Logo Section */}
         <div className="flex flex-col items-center mb-8 mt-10">
           <img

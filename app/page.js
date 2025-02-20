@@ -3,10 +3,11 @@ import Drawer from "./components/Drawer";
 import Process from "./components/Process";
 import Assets from "./components/Assets";
 import RunningHours from "./components/RunningHours";
+import Graphs from "./components/Graphs"
 
 export default function Home() {
   return (
-    <div className="bg-[#F9F9F9] min-h-screen">
+    <div className="bg-[#F9F9F9] ">
       <Navbar />
       <Drawer />
       {/* Flex container for Process, RunningHours, and Assets */}
@@ -22,6 +23,7 @@ export default function Home() {
         <div className="md:w-[360px] w-full mt-8 md:mt-0">
           <Assets />
         </div>
+        <Graphs />
       </div>
     </div>
   );

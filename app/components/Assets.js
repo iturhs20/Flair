@@ -9,13 +9,13 @@ const Assets = () => {
   return (
     <>
       {/* Desktop view */}
-      <div className="absolute mt-1 right-0 lg:right-[1rem] w-[360px] bg-white rounded-lg shadow-md p-4 hidden lg:block">
+      <div className="absolute mt-1 right-0 lg:right-[1rem] w-[360px] bg-white rounded-lg shadow-md p-4 hidden lg:block min-h-[605px]">
         {/* Tab Buttons */}
         <div className="flex">
           <button
             onClick={() => setActiveTab("assets")}
             className={`flex-1 p-2 rounded-t-lg font-semibold flex items-center justify-center gap-2 ${
-              activeTab === "assets" ? "bg-blue-900 text-white" : "bg-gray-200"
+              activeTab === "assets" ? "bg-blue-900 text-white" : "bg-gray-200 text-black"
             }`}
           >
             <Database size={18} />
@@ -24,7 +24,7 @@ const Assets = () => {
           <button
             onClick={() => setActiveTab("alerts")}
             className={`flex-1 p-2 rounded-t-lg font-semibold flex items-center justify-center gap-2 ${
-              activeTab === "alerts" ? "bg-blue-900 text-white" : "bg-gray-200"
+              activeTab === "alerts" ? "bg-blue-900 text-white" : "bg-gray-200 text-black"
             }`}
           >
             <Bell size={18} />
@@ -33,7 +33,7 @@ const Assets = () => {
         </div>
 
         {/* Content Section */}
-        <div className="border p-4 rounded-b-lg bg-gray-100 overflow-x-auto">
+        <div className="border p-4 rounded-b-lg bg-gray-100 overflow-x-hidden">
           {activeTab === "assets" ? (
             <table className="w-full border border-collapse text-center">
               <thead>
@@ -45,8 +45,8 @@ const Assets = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="border p-2">5</td>
-                  <td className="border p-2">4</td>
+                  <td className="border p-2 text-black">5</td>
+                  <td className="border p-2 text-black">4</td>
                   <td className="border p-2 bg-red-500 text-white">1</td>
                 </tr>
               </tbody>
@@ -61,20 +61,20 @@ const Assets = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="border p-2">X</td>
-                  <td className="border p-2">5</td>
+                  <td className="border p-2 text-black">X</td>
+                  <td className="border p-2 text-black">5</td>
                 </tr>
                 <tr>
-                  <td className="border p-2">Y</td>
-                  <td className="border p-2">10</td>
+                  <td className="border p-2 text-black">Y</td>
+                  <td className="border p-2 text-black">10</td>
                 </tr>
                 <tr>
-                  <td className="border p-2">Z</td>
-                  <td className="border p-2">3</td>
+                  <td className="border p-2 text-black">Z</td>
+                  <td className="border p-2 text-black">3</td>
                 </tr>
                 <tr>
-                  <td className="border p-2">S</td>
-                  <td className="border p-2">3</td>
+                  <td className="border p-2 text-black">S</td>
+                  <td className="border p-2 text-black">3</td>
                 </tr>
               </tbody>
             </table>
@@ -108,7 +108,7 @@ const Assets = () => {
         </div>
 
         {/* Content Section */}
-        <div className="border p-4 rounded-b-lg bg-gray-100 overflow-x-auto">
+        <div className="border p-4 rounded-b-lg bg-gray-100 overflow-x-hidden">
           {activeTab === "assets" ? (
             <table className="w-full border border-collapse text-center">
               <thead>
