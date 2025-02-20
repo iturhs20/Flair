@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Calendar, Clock } from "lucide-react";
 
-// Machine Data for different types
+// Complete machine data map
 const machineDataMap = {
   "Pipe Cutting": {
     lastReported: "10:59 11-02-2025",
@@ -65,7 +66,6 @@ const machineDataMap = {
   },
 };
 
-// Production Data for different views
 const productionDataMap = {
   Shiftwise: [
     { shift: "Shift A", rate: 10 },
@@ -83,16 +83,107 @@ const productionDataMap = {
     { shift: "Week 3", rate: 2100 },
   ],
   Date: [
-    { shift: "11-02", rate: 600 },
-    { shift: "12-02", rate: 800 },
-    { shift: "13-02", rate: 1000 },
+    { shift: "09:00", rate: 100 },
+    { shift: "10:00", rate: 150 },
+    { shift: "11:00", rate: 200 },
+    { shift: "12:00", rate: 180 },
+    { shift: "13:00", rate: 220 },
+    { shift: "14:00", rate: 250 },
   ],
 };
 
+function DateTimePicker({ onClose, onApply }) {
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("17:00");
+
+  return (
+    <div className="absolute top-16 right-0 bg-white p-6 rounded-lg shadow-xl border border-gray-200 z-10">
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-gray-500" />
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="border rounded-md p-2"
+          />
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <Clock className="w-5 h-5 text-gray-500" />
+          <div className="flex items-center gap-2">
+            <input
+              type="time"
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className="border rounded-md p-2"
+            />
+            <span>to</span>
+            <input
+              type="time"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              className="border rounded-md p-2"
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-2 mt-4">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => onApply({ selectedDate, startTime, endTime })}
+            className="px-4 py-2 bg-blue-900 text-white rounded-md hover:bg-blue-800"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MachinePopup({ machine, onClose }) {
   const [view, setView] = useState("Shiftwise");
-  const machineData = machineDataMap[machine.title]; // Get selected machine data
-  const productionData = productionDataMap[view]; // Get selected view data
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [dateTimeFilter, setDateTimeFilter] = useState(null);
+  
+  // Get machine data with fallback for unknown machine types
+  const machineData = machineDataMap[machine.title] || {
+    lastReported: "N/A",
+    utilization: "N/A",
+    ontime: "N/A",
+    runningtime: "N/A",
+    idleTime: "N/A",
+    offtime: "N/A",
+    currentShift: "N/A",
+    efficiency: "N/A",
+    totalToday: "N/A",
+    downtime: "N/A",
+  };
+  
+  const [productionData, setProductionData] = useState(productionDataMap[view]);
+
+  const handleViewChange = (newView) => {
+    setView(newView);
+    if (newView === "Date") {
+      setShowDatePicker(true);
+    } else {
+      setProductionData(productionDataMap[newView]);
+      setShowDatePicker(false);
+    }
+  };
+
+  const handleDateTimeApply = (filter) => {
+    setDateTimeFilter(filter);
+    setShowDatePicker(false);
+    setProductionData(productionDataMap.Date);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -101,12 +192,10 @@ function MachinePopup({ machine, onClose }) {
         {/* Left Sidebar */}
         <div className="bg-gray-100 p-6 rounded-lg shadow-md w-1/3 flex flex-col items-center">
           <div className="w-20 h-20 border-2 border-black rounded-full mb-3"></div>
-
-          {/* Machine Type */}
           <p className="text-xl font-bold">{machine.title}</p>
-          <p className="text-lg px-6 py-2 mt-2 rounded-md bg-blue-900 text-white"><strong>Shift :</strong> <span className="text-white font-bold"> A </span></p>
-
-          {/* Machine Details */}
+          <p className="text-lg px-6 py-2 mt-2 rounded-md bg-blue-900 text-white">
+            <strong>Shift :</strong> <span className="text-white font-bold"> A </span>
+          </p>
           <div className="mt-6 space-y-4 text-gray-700 text-lg">
             <p><strong>Last reported:</strong> <span className="text-blue-700">{machineData.lastReported}</span></p>
             <p><strong>Cumulative utilization:</strong> <span className="text-blue-700">{machineData.utilization}</span></p>
@@ -122,19 +211,33 @@ function MachinePopup({ machine, onClose }) {
           <h2 className="text-2xl font-bold">Machine Details: {machine.title}</h2>
 
           {/* Toggle Buttons */}
-          <div className="flex gap-3 mt-4">
+          <div className="flex gap-3 mt-4 relative">
             {["Shiftwise", "Daily", "Weekly", "Date"].map((btn) => (
               <button
                 key={btn}
                 className={`px-6 py-2 rounded-md text-lg ${
                   view === btn ? "bg-blue-900 text-white" : "bg-gray-200"
                 }`}
-                onClick={() => setView(btn)}
+                onClick={() => handleViewChange(btn)}
               >
                 {btn}
               </button>
             ))}
+            
+            {showDatePicker && (
+              <DateTimePicker
+                onClose={() => setShowDatePicker(false)}
+                onApply={handleDateTimeApply}
+              />
+            )}
           </div>
+
+          {/* Date/Time Filter Display */}
+          {dateTimeFilter && view === "Date" && (
+            <div className="mt-4 text-sm text-gray-600">
+              Showing data for: {dateTimeFilter.selectedDate} ({dateTimeFilter.startTime} - {dateTimeFilter.endTime})
+            </div>
+          )}
 
           {/* Production Data */}
           <div className="grid grid-cols-3 gap-6 mt-6 text-gray-700 text-lg">
@@ -143,7 +246,7 @@ function MachinePopup({ machine, onClose }) {
             <p><strong>Total Today:</strong> <span className="text-blue-700">{machineData.totalToday}</span></p>
           </div>
 
-          {/* Graph - Dynamic Based on View */}
+          {/* Graph */}
           <div className="mt-16 h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={productionData}>
